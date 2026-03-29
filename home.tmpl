@@ -1,0 +1,177 @@
+{{template "base/head" .}}
+<div class="portal-wrapper">
+    <div class="portal-card">
+        <div class="portal-header">
+            <img src="{{AppSubUrl}}/assets/img/logo.svg" alt="Logo" class="portal-logo select-none">
+            <h1 class="portal-title select-none">Forgejo</h1>
+            <p class="portal-subtitle">The platform for modern engineering.</p>
+        </div>
+
+        <div class="portal-body select-none">
+            <a href="{{AppSubUrl}}/explore/repos" class="btn-primary">
+                Explore repositories
+            </a>
+            <div class="divider">
+                <span>or</span>
+            </div>
+            <a href="{{AppSubUrl}}/user/login" class="btn-secondary">
+                Sign in to your account
+            </a>
+        </div>
+    </div>
+</div>
+
+<style>
+    /* Full Page Reset */
+    .page-content.home {
+        padding: 0 !important;
+        margin: 0 !important;
+        max-width: none !important;
+    }
+
+    .portal-wrapper {
+        min-height: calc(100vh - 200px);
+        display: flex;
+        align-items: center;
+        justify-content: center;
+    }
+
+    .select-none {
+        -webkit-user-select: none; /* Safari */
+        -moz-user-select: none;    /* Firefox */
+        -ms-user-select: none;     /* IE10+/Edge */
+        user-select: none;         /* Standard syntax */
+    }
+
+    /* Color Variables - Fallbacks if theme not loaded */
+    :root {
+        --home-bg-primary: var(--color-body, #0B1120);
+        --home-bg-secondary: var(--color-box-body, #111827);
+        --home-text-primary: var(--color-text, #F1F5F9);
+        --home-text-secondary: var(--color-text-light, #94A3B8);
+        --home-text-muted: var(--color-text-light-3, #64748B);
+        --home-accent: var(--color-primary, #10B981);
+        --home-border: var(--color-light-border, rgba(255, 255, 255, 0.1));
+        --home-card-bg: var(--fancy-card-bg, rgba(255, 255, 255, 0.03));
+        --home-card-border: var(--fancy-card-border, rgba(255, 255, 255, 0.08));
+    }
+
+    /* Light mode overrides */
+    @media (prefers-color-scheme: light) {
+        :root {
+            --home-bg-primary: var(--color-body, #F8FAFC);
+            --home-bg-secondary: var(--color-box-body, #FFFFFF);
+            --home-text-primary: var(--color-text, #0F172A);
+            --home-text-secondary: var(--color-text-light, #475569);
+            --home-text-muted: var(--color-text-light-3, #94A3B8);
+            --home-accent: var(--color-primary, #059669);
+            --home-border: var(--color-light-border, rgba(0, 0, 0, 0.1));
+            --home-card-bg: var(--fancy-card-bg, #FFFFFF);
+            --home-card-border: var(--fancy-card-border, rgba(0, 0, 0, 0.08));
+        }
+    }
+
+    /* The Card Container */
+    .portal-card {
+        background-color: var(--home-bg-secondary);
+        border: 1px solid var(--home-border);
+        border-radius: 12px;
+        padding: 40px;
+        width: 100%;
+        max-width: 440px;
+        box-shadow: 0 10px 30px rgba(0, 0, 0, 0.3);
+        text-align: center;
+        backdrop-filter: blur(8px);
+    }
+
+    .portal-logo {
+        width: 48px;
+        height: 48px;
+        margin-bottom: 24px;
+    }
+
+    .portal-title {
+        color: var(--home-text-primary) !important;
+        font-size: 24px !important;
+        font-weight: 600 !important;
+        margin-bottom: 8px !important;
+    }
+
+    .portal-subtitle {
+        color: var(--home-text-secondary);
+        font-size: 16px;
+        margin-bottom: 32px !important;
+    }
+
+    /* Action Buttons */
+    .portal-body {
+        display: flex;
+        flex-direction: column;
+        gap: 12px;
+    }
+
+    .btn-primary {
+        background-color: var(--home-accent);
+        color: #000 !important;
+        padding: 12px 24px;
+        border-radius: 6px;
+        font-weight: 600;
+        text-decoration: none !important;
+        transition: background-color 0.2s;
+        border: none;
+    }
+
+    .btn-primary:hover {
+        filter: brightness(1.1);
+    }
+
+    .btn-secondary {
+        background-color: transparent;
+        color: var(--home-text-primary) !important;
+        border: 1px solid var(--home-border);
+        padding: 12px 24px;
+        border-radius: 6px;
+        font-weight: 500;
+        text-decoration: none !important;
+        transition: border-color 0.2s, background-color 0.2s;
+    }
+
+    .btn-secondary:hover {
+        border-color: var(--home-text-muted);
+        background-color: rgba(255, 255, 255, 0.05);
+    }
+
+    @media (prefers-color-scheme: light) {
+        .btn-secondary:hover {
+            background-color: rgba(0, 0, 0, 0.05);
+        }
+    }
+
+    .divider {
+        display: flex;
+        align-items: center;
+        text-align: center;
+        color: var(--home-text-muted);
+        font-size: 12px;
+        margin: 8px 0;
+    }
+
+    .divider::before, .divider::after {
+        content: '';
+        flex: 1;
+        border-bottom: 1px solid var(--home-border);
+    }
+
+    .divider span {
+        padding: 0 10px;
+    }
+
+    @media (max-width: 480px) {
+        .portal-card {
+            border: none;
+            box-shadow: none;
+            padding: 20px;
+        }
+    }
+</style>
+{{template "base/footer" .}}
