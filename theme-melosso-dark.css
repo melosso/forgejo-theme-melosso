@@ -786,3 +786,27 @@ div.menu,
 .ui.dropdown .menu > .item.active {
   background: var(--color-active) !important;
 }
+
+/* SVG Octicons - ensure visibility in dark mode */
+.svg,
+.gt-octicon,
+.octicon,
+.ui .svg,
+.markdown-body svg,
+.file-content svg,
+.repository-file svg {
+  fill: currentColor;
+  color: var(--melosso-text-primary);
+}
+
+/* File list icons */
+.tw-mr-2,
+.file-content .tw-mr-2,
+.repository-file .tw-mr-2 {
+  color: var(--melosso-text-secondary);
+}
+
+.file-content .file-list-item:hover .tw-mr-2,
+.repository-file .file-list-item:hover .tw-mr-2 {
+  color: var(--melosso-accent);
+}
