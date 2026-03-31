@@ -802,11 +802,19 @@ div.menu,
 /* File list icons */
 .tw-mr-2,
 .file-content .tw-mr-2,
-.repository-file .tw-mr-2 {
-  color: var(--melosso-text-secondary);
+.repository-file .tw-mr-2,
+.repository.file.list #repo-files-table tbody .svg.octicon-file,
+.repository.file.list #repo-files-table tbody .svg.octicon-file-directory,
+.repository.file.list #repo-files-table tbody .svg.octicon-file-symlink-file,
+.repository.file.list #repo-files-table tbody .svg.octicon-file-directory-symlink {
+  color: var(--melosso-text-secondary) !important;
 }
 
 .file-content .file-list-item:hover .tw-mr-2,
-.repository-file .file-list-item:hover .tw-mr-2 {
-  color: var(--melosso-accent);
+.repository-file .file-list-item:hover .tw-mr-2,
+.repository.file.list #repo-files-table tbody tr:hover .svg.octicon-file,
+.repository.file.list #repo-files-table tbody tr:hover .svg.octicon-file-directory,
+.repository.file.list #repo-files-table tbody tr:hover .svg.octicon-file-symlink-file,
+.repository.file.list #repo-files-table tbody tr:hover .svg.octicon-file-directory-symlink {
+  color: var(--melosso-accent) !important;
 }
