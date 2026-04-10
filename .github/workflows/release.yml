@@ -22,11 +22,11 @@ jobs:
           RELEASE_NAME="melosso-theme-${{ github.event.inputs.version }}"
           mkdir -p $RELEASE_NAME
           cp -r images/ $RELEASE_NAME/images/
-          cp README.md $RELEASE_NAME/README_${{ github.event.inputs.version }}.md
-          cp INSTALL.md $RELEASE_NAME/INSTALL_${{ github.event.inputs.version }}.md
-          cp theme-melosso.css $RELEASE_NAME/melosso_${{ github.event.inputs.version }}.css
-          cp theme-melosso-dark.css $RELEASE_NAME/melosso-dark_${{ github.event.inputs.version }}.css
-          cp theme-melosso-light.css $RELEASE_NAME/melosso-light_${{ github.event.inputs.version }}.css
+          cp README.md $RELEASE_NAME/README.md
+          cp INSTALL.md $RELEASE_NAME/INSTALL.md
+          cp theme-melosso.css $RELEASE_NAME/theme-melosso.css
+          cp theme-melosso-dark.css $RELEASE_NAME/theme-melosso-dark.css
+          cp theme-melosso-light.css $RELEASE_NAME/theme-melosso-light.css
           zip -r ${RELEASE_NAME}.zip $RELEASE_NAME
 
       - name: Create Tag
