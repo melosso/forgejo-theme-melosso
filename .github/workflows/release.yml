@@ -20,6 +20,11 @@ jobs:
       - name: Prepare release assets
         run: |
           zip -r images.zip images/
+          cp README.md README_${{ github.event.inputs.version }}.md
+          cp INSTALL.md INSTALL_${{ github.event.inputs.version }}.md
+          cp theme-melosso.css melosso_${{ github.event.inputs.version }}.css
+          cp theme-melosso-dark.css melosso-dark_${{ github.event.inputs.version }}.css
+          cp theme-melosso-light.css melosso-light_${{ github.event.inputs.version }}.css
 
       - name: Create Tag
         run: |
@@ -30,13 +35,13 @@ jobs:
         uses: softprops/action-gh-release@v2
         with:
           tag_name: ${{ github.event.inputs.version }}
-          name: Release ${{ github.event.inputs.version }}
+          name: ${{ github.event.inputs.version }}
           files: |
             images.zip
-            README.md
-            INSTALL.md
-            theme-melosso.css
-            theme-melosso-dark.css
-            theme-melosso-light.css
+            README_${{ github.event.inputs.version }}.md
+            INSTALL_${{ github.event.inputs.version }}.md
+            melosso_${{ github.event.inputs.version }}.css
+            melosso-dark_${{ github.event.inputs.version }}.css
+            melosso-light_${{ github.event.inputs.version }}.css
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
