@@ -19,12 +19,15 @@ jobs:
 
       - name: Prepare release assets
         run: |
-          zip -r images.zip images/
-          cp README.md README_${{ github.event.inputs.version }}.md
-          cp INSTALL.md INSTALL_${{ github.event.inputs.version }}.md
-          cp theme-melosso.css melosso_${{ github.event.inputs.version }}.css
-          cp theme-melosso-dark.css melosso-dark_${{ github.event.inputs.version }}.css
-          cp theme-melosso-light.css melosso-light_${{ github.event.inputs.version }}.css
+          RELEASE_NAME="melosso-theme-${{ github.event.inputs.version }}"
+          mkdir -p $RELEASE_NAME
+          cp -r images/ $RELEASE_NAME/images/
+          cp README.md $RELEASE_NAME/README_${{ github.event.inputs.version }}.md
+          cp INSTALL.md $RELEASE_NAME/INSTALL_${{ github.event.inputs.version }}.md
+          cp theme-melosso.css $RELEASE_NAME/melosso_${{ github.event.inputs.version }}.css
+          cp theme-melosso-dark.css $RELEASE_NAME/melosso-dark_${{ github.event.inputs.version }}.css
+          cp theme-melosso-light.css $RELEASE_NAME/melosso-light_${{ github.event.inputs.version }}.css
+          zip -r ${RELEASE_NAME}.zip $RELEASE_NAME
 
       - name: Create Tag
         run: |
@@ -36,12 +39,6 @@ jobs:
         with:
           tag_name: ${{ github.event.inputs.version }}
           name: ${{ github.event.inputs.version }}
-          files: |
-            images.zip
-            README_${{ github.event.inputs.version }}.md
-            INSTALL_${{ github.event.inputs.version }}.md
-            melosso_${{ github.event.inputs.version }}.css
-            melosso-dark_${{ github.event.inputs.version }}.css
-            melosso-light_${{ github.event.inputs.version }}.css
+          files: melosso-theme-${{ github.event.inputs.version }}.zip
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
