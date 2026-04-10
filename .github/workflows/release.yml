@@ -1,0 +1,37 @@
+name: Release
+
+on:
+  workflow_dispatch:
+    inputs:
+      version:
+        description: 'Version number (e.g., v0.1.4)'
+        required: true
+        type: string
+
+jobs:
+  release:
+    runs-on: ubuntu-latest
+    permissions:
+      contents: write
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v4
+
+      - name: Prepare release assets
+        run: |
+          zip -r images.zip images/
+
+      - name: Create Release
+        uses: softprops/action-gh-release@v2
+        with:
+          tag_name: ${{ github.inputs.version }}
+          name: Release ${{ github.inputs.version }}
+          files: |
+            images.zip
+            README.md
+            INSTALL.md
+            theme-melosso.css
+            theme-melosso-dark.css
+            theme-melosso-light.css
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
