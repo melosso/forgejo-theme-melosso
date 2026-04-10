@@ -409,18 +409,17 @@ body::before {
 }
 
 /* Glassmorphism card effect */
-.ui.segment,
-.ui.segments,
-.markdown-body,
-.repository-file,
-.file-content,
-.diff-box,
-.comment,
-.issue-comment,
-.pr-review-comment {
-  background: var(--melosso-card-bg) !important;
-  backdrop-filter: blur(8px);
-  border: 1px solid var(--melosso-card-border) !important;
+body .ui.segment,
+body .ui.segments,
+body .repository-file,
+body .file-content,
+body .diff-box,
+body .comment,
+body .issue-comment,
+body .pr-review-comment {
+  background: var(--melosso-card-bg);
+  box-shadow: var(--melosso-shadow);
+  border: 1px solid var(--melosso-card-border);
 }
 
 /* Hover glow on interactive cards */
@@ -430,6 +429,34 @@ body::before {
 .file-content:hover {
   box-shadow: var(--melosso-card-glow);
   border-color: var(--melosso-border-hover) !important;
+}
+
+/* Markdown file view - no shadow/glow */
+.markup,
+.file-view.markup,
+.markup.markdown,
+.file-view.markup.markdown {
+  background: var(--melosso-card-bg) !important;
+  box-shadow: none !important;
+  border: none !important;
+  border-radius: 0 !important;
+}
+
+/* Override segment for markdown */
+.ui.bottom.attached.segment,
+.ui.attached.segment,
+body .ui.bottom.attached.segment,
+body .ui.attached.segment {
+  box-shadow: none !important;
+}
+
+/* No hover effects on markdown view */
+.markup:hover,
+.file-view.markup:hover,
+.ui.bottom.attached.segment:hover,
+.ui.attached.segment:hover {
+  box-shadow: none !important;
+  border-color: none !important;
 }
 
 /* Button: Primary - Emerald */
@@ -493,17 +520,37 @@ i.grey.icon.icon.icon.icon {
   border-radius: 0.28571429rem !important;
   overflow: hidden;
 }
+
+/* Tab menu: Secondary pointing style */
+.ui.secondary.pointing.menu .active.item {
+  background-color: transparent;
+  box-shadow: none;
+  border-color: var(--melosso-accent) !important;
+  font-weight: 500;
+  color: var(--melosso-accent) !important;
+}
+
+.ui.secondary.pointing.menu .item:hover {
+  border-color: var(--melosso-accent-hover) !important;
+  color: var(--melosso-accent-hover) !important;
+}
 .ui.basic.primary.button.item {
   background-color: var(--color-active) !important;
   color: var(--color-text) !important;
   box-shadow: none !important;
 }
+.repo-topics {
+  margin-top: 0.5rem;
+  margin-bottom: 0.5rem;
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.5rem;
+}
 .ui.label,
 .ui.labels .label {
-  margin-top: 0.5rem !important;
-  margin-bottom: 0.5rem !important;
   padding-top: 0.25rem !important;
   padding-bottom: 0.25rem !important;
+  margin: 0 !important;
 }
 .ui.red.label.notification_count,
 .ui.primary.label,
@@ -755,23 +802,16 @@ p.help {
 }
 
 /* Dropdown menu z-index fix */
-.ui.dropdown.menu,
-.ui.menu .menu,
-.ui.menu.visible,
-.ui.dropdown.visible > .menu,
-.ui.selection.dropdown > .menu,
-.ui.simple.dropdown > .menu,
-.dropdown .menu,
-div.menu,
-.ui.menu .dropdown .menu,
-.ui.dropdown > .menu,
-.ui.complex.dropdown .menu,
-.ui.menu > .wrapper > .menu {
-  z-index: 9999 !important;
+.ui.selection.dropdown.active.visible {
+    z-index: 100 !important; 
+    position: relative; /* Ensures z-index takes effect */
 }
 
-.ui.menu .dropdown .menu {
-  z-index: 10000 !important;
+.ui.selection.dropdown.active.visible > .menu.visible {
+    position: absolute !important;
+    z-index: 101 !important; 
+    top: 100%; /* Pushes the menu exactly below the input box */
+    left: 0;
 }
 
 /* Dropdown item styling */
@@ -787,7 +827,25 @@ div.menu,
   background: var(--color-active) !important;
 }
 
-/* SVG Octicons - ensure visibility in dark mode */
+/* User menu and navigation dropdowns, ensure above other content */
+nav#navbar,
+.navbar-right {
+  z-index: 1000 !important;
+  position: relative;
+}
+
+.navbar-right details.dropdown > .content {
+  position: fixed !important;
+  z-index: 1001 !important;
+  right: 8px;
+  top: 40px;
+}
+
+overflow-menu {
+  z-index: 100 !important;
+}
+
+/* SVG Octicons, ensure visibility in dark mode */
 .svg,
 .gt-octicon,
 .octicon,
@@ -796,7 +854,6 @@ div.menu,
 .file-content svg,
 .repository-file svg {
   fill: currentColor;
-  color: var(--melosso-text-primary);
 }
 
 /* File list icons */
