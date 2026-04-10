@@ -21,11 +21,16 @@ jobs:
         run: |
           zip -r images.zip images/
 
+      - name: Create Tag
+        run: |
+          git tag ${{ github.event.inputs.version }}
+          git push origin ${{ github.event.inputs.version }}
+
       - name: Create Release
         uses: softprops/action-gh-release@v2
         with:
-          tag_name: ${{ github.inputs.version }}
-          name: Release ${{ github.inputs.version }}
+          tag_name: ${{ github.event.inputs.version }}
+          name: Release ${{ github.event.inputs.version }}
           files: |
             images.zip
             README.md
