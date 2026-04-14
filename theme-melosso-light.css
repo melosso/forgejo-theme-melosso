@@ -388,16 +388,6 @@ body .pr-review-comment {
 body .ui.bottom.attached.segment,
 body .ui.attached.segment {
   box-shadow: none !important;
-  border-shadow: none !important;
-}
-
-/* No hover effects on markdown view */
-.markup:hover,
-.file-view.markup:hover,
-.ui.bottom.attached.segment:hover,
-.ui.attached.segment:hover {
-  box-shadow: none !important;
-  border-color: inherit !important;
 }
 
 /* Nav: Glass effect with blur */
