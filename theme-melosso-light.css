@@ -382,6 +382,12 @@ body .pr-review-comment {
   border-radius: 0 !important;
 }
 
+/* Org/user profile description - inherits page background, not card */
+#org-info .render-content.markup,
+#org-info .render-content.markup.markdown {
+  background: transparent !important;
+}
+
 /* Override segment for markdown */
 .ui.bottom.attached.segment,
 .ui.attached.segment,
