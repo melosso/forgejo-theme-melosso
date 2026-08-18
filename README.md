@@ -1,6 +1,6 @@
 # Melosso for [Forgejo](https://forgejo.org/)
 
-A brand-inspired theme for Forgejo. Might also work for Gitea, but I don't test against it.
+A brand-inspired theme for Forgejo. Might also work for Gitea, but I don't (and did not) test against it. Please submit an issue if you run into any compatibility issues.
 
 ![Melosso Dark Screenshot](./images/melosso-theme.png)
 
