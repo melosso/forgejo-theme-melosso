@@ -17,3 +17,17 @@ THEMES = forgejo-auto, forgejo-light, forgejo-dark, melosso, melosso-dark, melos
 ```
 
 Save the file and restart your Forgejo instance (e.g. `sudo systemctl restart forgejo`) so the changes take effect.
+
+## Optional landing page (when not signed in)
+
+This theme ships a custom `home.tmpl` that replaces the default landing page with a styled "begin screen" shown to visitors who are not logged in. It is designed for the dark theme and reuses the Melosso color variables, so no extra setup is needed beyond copying the file.
+
+To enable it, drop [home.tmpl](./home.tmpl) into your custom templates directory:
+
+```bash
+cp home.tmpl custom/templates/home.tmpl
+```
+
+Then restart Forgejo. The landing page is only shown to signed-out visitors; signed-in users still see their dashboard.
+
+> Template overrides are an unsupported Forgejo feature and may need adjustments after major Forgejo upgrades. If a future Forgejo version changes the home template structure, test the override in a staging instance first.

@@ -1,177 +1,303 @@
 {{template "base/head" .}}
-<div class="portal-wrapper">
+<div class="page-content home portal">
+  <div class="portal-hero">
+    <div class="portal-grid" aria-hidden="true"></div>
+    <div class="portal-orbs" aria-hidden="true">
+      <span class="orb orb-1"></span>
+      <span class="orb orb-2"></span>
+      <span class="orb orb-3"></span>
+    </div>
+
     <div class="portal-card">
-        <div class="portal-header">
-            <img src="{{AppSubUrl}}/assets/img/logo.svg" alt="Logo" class="portal-logo select-none">
-            <h1 class="portal-title select-none">Forgejo</h1>
-            <p class="portal-subtitle">The platform for modern engineering.</p>
+      <div class="portal-card-inner">
+        <img src="{{AssetUrlPrefix}}/img/logo.svg" alt="{{ctx.Locale.Tr "logo"}}" class="portal-logo">
+        <h1 class="portal-title">{{AppDisplayName}}</h1>
+        <p class="portal-subtitle">{{ctx.Locale.Tr "startpage.app_desc"}}</p>
+
+        <div class="portal-actions">
+          <a href="{{AppSubUrl}}/user/login" class="portal-btn portal-btn-primary">
+            {{svg "octicon-sign-in" 16}} <span>{{ctx.Locale.Tr "sign_in"}}</span>
+          </a>
+          {{if .ShowRegistrationButton}}
+          <a href="{{AppSubUrl}}/user/sign_up" class="portal-btn portal-btn-secondary">
+            {{svg "octicon-person" 16}} <span>{{ctx.Locale.Tr "register"}}</span>
+          </a>
+          {{end}}
         </div>
 
-        <div class="portal-body select-none">
-            <a href="{{AppSubUrl}}/explore/repos" class="btn-primary">
-                Explore repositories
-            </a>
-            <div class="divider">
-                <span>or</span>
-            </div>
-            <a href="{{AppSubUrl}}/user/login" class="btn-secondary">
-                Sign in to your account
-            </a>
-        </div>
+        <div class="portal-divider"><span>{{ctx.Locale.Tr "sign_in_or"}}</span></div>
+
+        <a href="{{AppSubUrl}}/explore/repos" class="portal-explore">
+          {{svg "octicon-telescope" 16}} <span>{{ctx.Locale.Tr "explore.repos"}}</span>
+        </a>
+      </div>
     </div>
+
+    <div class="portal-features">
+      <div class="portal-feature">
+        <span class="portal-feature-icon">{{svg "octicon-flame" 24}}</span>
+        <h3>{{ctx.Locale.Tr "startpage.install"}}</h3>
+        <p>{{ctx.Locale.Tr "startpage.lightweight_desc"}}</p>
+      </div>
+      <div class="portal-feature">
+        <span class="portal-feature-icon">{{svg "octicon-device-desktop" 24}}</span>
+        <h3>{{ctx.Locale.Tr "startpage.platform"}}</h3>
+        <p>{{ctx.Locale.Tr "startpage.platform_desc"}}</p>
+      </div>
+      <div class="portal-feature">
+        <span class="portal-feature-icon">{{svg "octicon-code" 24}}</span>
+        <h3>{{ctx.Locale.Tr "startpage.license"}}</h3>
+        <p>{{ctx.Locale.Tr "startpage.license_desc" "https://forgejo.org/download" "https://codeberg.org/forgejo/forgejo"}}</p>
+      </div>
+    </div>
+  </div>
 </div>
 
 <style>
-    /* Full Page Reset */
-    .page-content.home {
-        padding: 0 !important;
-        margin: 0 !important;
-        max-width: none !important;
-    }
+  /* Full-bleed landing page, dark-first, theme-variable driven */
+  .page-content.home {
+    padding: 0 !important;
+    margin: 0 !important;
+    max-width: none !important;
+  }
 
-    .portal-wrapper {
-        min-height: calc(100vh - 200px);
-        display: flex;
-        align-items: center;
-        justify-content: center;
-    }
+  .portal-hero {
+    position: relative;
+    min-height: calc(100vh - 120px);
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    gap: 56px;
+    padding: 80px 24px;
+    overflow: hidden;
+    isolation: isolate;
+  }
 
-    .select-none {
-        -webkit-user-select: none; /* Safari */
-        -moz-user-select: none;    /* Firefox */
-        -ms-user-select: none;     /* IE10+/Edge */
-        user-select: none;         /* Standard syntax */
-    }
+  /* faint moving grid backdrop */
+  .portal-grid {
+    position: absolute;
+    inset: 0;
+    z-index: -3;
+    background-image:
+      linear-gradient(to right, rgba(148, 163, 184, 0.05) 1px, transparent 1px),
+      linear-gradient(to bottom, rgba(148, 163, 184, 0.05) 1px, transparent 1px);
+    background-size: 48px 48px;
+    mask-image: radial-gradient(ellipse 70% 60% at 50% 35%, #000 0%, transparent 80%);
+    -webkit-mask-image: radial-gradient(ellipse 70% 60% at 50% 35%, #000 0%, transparent 80%);
+  }
 
-    /* Color Variables - Fallbacks if theme not loaded */
-    :root {
-        --home-bg-primary: var(--color-body, #0B1120);
-        --home-bg-secondary: var(--color-box-body, #111827);
-        --home-text-primary: var(--color-text, #F1F5F9);
-        --home-text-secondary: var(--color-text-light, #94A3B8);
-        --home-text-muted: var(--color-text-light-3, #64748B);
-        --home-accent: var(--color-primary, #10B981);
-        --home-border: var(--color-light-border, rgba(255, 255, 255, 0.1));
-        --home-card-bg: var(--fancy-card-bg, rgba(255, 255, 255, 0.03));
-        --home-card-border: var(--fancy-card-border, rgba(255, 255, 255, 0.08));
-    }
+  /* floating accent orbs */
+  .portal-orbs { position: absolute; inset: 0; z-index: -2; pointer-events: none; }
+  .orb {
+    position: absolute;
+    border-radius: 50%;
+    filter: blur(70px);
+    opacity: 0.35;
+  }
+  .orb-1 {
+    width: 420px; height: 420px;
+    top: -120px; left: -100px;
+    background: var(--melosso-accent, #10B981);
+    animation: portal-float-1 14s ease-in-out infinite;
+  }
+  .orb-2 {
+    width: 360px; height: 360px;
+    bottom: -140px; right: -80px;
+    background: var(--melosso-accent-secondary, #14B8A6);
+    animation: portal-float-2 18s ease-in-out infinite;
+  }
+  .orb-3 {
+    width: 300px; height: 300px;
+    top: 40%; right: 25%;
+    background: #3B82F6;
+    opacity: 0.18;
+    animation: portal-float-3 22s ease-in-out infinite;
+  }
+  @keyframes portal-float-1 {
+    0%, 100% { transform: translate(0, 0) scale(1); }
+    50% { transform: translate(40px, 30px) scale(1.1); }
+  }
+  @keyframes portal-float-2 {
+    0%, 100% { transform: translate(0, 0) scale(1); }
+    50% { transform: translate(-30px, -40px) scale(1.05); }
+  }
+  @keyframes portal-float-3 {
+    0%, 100% { transform: translate(0, 0); }
+    50% { transform: translate(-60px, 50px); }
+  }
 
-    /* Light mode overrides */
-    @media (prefers-color-scheme: light) {
-        :root {
-            --home-bg-primary: var(--color-body, #F8FAFC);
-            --home-bg-secondary: var(--color-box-body, #FFFFFF);
-            --home-text-primary: var(--color-text, #0F172A);
-            --home-text-secondary: var(--color-text-light, #475569);
-            --home-text-muted: var(--color-text-light-3, #94A3B8);
-            --home-accent: var(--color-primary, #059669);
-            --home-border: var(--color-light-border, rgba(0, 0, 0, 0.1));
-            --home-card-bg: var(--fancy-card-bg, #FFFFFF);
-            --home-card-border: var(--fancy-card-border, rgba(0, 0, 0, 0.08));
-        }
-    }
+  /* glass card */
+  .portal-card {
+    position: relative;
+    width: 100%;
+    max-width: 460px;
+    border-radius: 20px;
+    padding: 1px;
+    background: linear-gradient(145deg,
+      rgba(255, 255, 255, 0.14),
+      rgba(255, 255, 255, 0.02) 40%,
+      transparent 70%);
+    box-shadow: 0 24px 60px rgba(0, 0, 0, 0.45);
+  }
+  .portal-card-inner {
+    background: var(--melosso-bg-secondary, #111827);
+    border: 1px solid var(--melosso-card-border, rgba(255, 255, 255, 0.08));
+    border-radius: 19px;
+    padding: 48px 40px 40px;
+    text-align: center;
+    backdrop-filter: blur(14px);
+  }
 
-    /* The Card Container */
-    .portal-card {
-        background-color: var(--home-bg-secondary);
-        border: 1px solid var(--home-border);
-        border-radius: 12px;
-        padding: 40px;
-        width: 100%;
-        max-width: 440px;
-        box-shadow: 0 10px 30px rgba(0, 0, 0, 0.3);
-        text-align: center;
-        backdrop-filter: blur(8px);
-    }
+  .portal-logo {
+    width: 64px;
+    height: 64px;
+    margin: 0 auto 24px;
+    display: block;
+    filter: drop-shadow(0 0 18px rgba(16, 185, 129, 0.45));
+  }
+  .portal-title {
+    color: var(--melosso-text-primary, #F1F5F9) !important;
+    font-size: 30px !important;
+    font-weight: 700 !important;
+    letter-spacing: -0.02em;
+    margin: 0 0 12px !important;
+  }
+  .portal-subtitle {
+    color: var(--melosso-text-secondary, #94A3B8);
+    font-size: 16px;
+    line-height: 1.5;
+    margin: 0 0 36px;
+    max-width: 340px;
+    margin-inline: auto;
+  }
 
-    .portal-logo {
-        width: 48px;
-        height: 48px;
-        margin-bottom: 24px;
-    }
+  .portal-actions {
+    display: flex;
+    flex-direction: column;
+    gap: 12px;
+  }
+  .portal-btn {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    gap: 8px;
+    padding: 13px 24px;
+    border-radius: 10px;
+    font-weight: 600;
+    font-size: 15px;
+    text-decoration: none !important;
+    transition: transform 0.15s ease, filter 0.2s ease, border-color 0.2s ease, background-color 0.2s ease;
+  }
+  .portal-btn svg { flex-shrink: 0; }
+  .portal-btn:hover { transform: translateY(-1px); }
+  .portal-btn:active { transform: translateY(0); }
 
-    .portal-title {
-        color: var(--home-text-primary) !important;
-        font-size: 24px !important;
-        font-weight: 600 !important;
-        margin-bottom: 8px !important;
-    }
+  .portal-btn-primary {
+    background: var(--melosso-accent, #10B981);
+    color: #04130D !important;
+    box-shadow: 0 8px 24px rgba(16, 185, 129, 0.3);
+  }
+  .portal-btn-primary:hover { filter: brightness(1.1); }
 
-    .portal-subtitle {
-        color: var(--home-text-secondary);
-        font-size: 16px;
-        margin-bottom: 32px !important;
-    }
+  .portal-btn-secondary {
+    background: rgba(255, 255, 255, 0.04);
+    color: var(--melosso-text-primary, #F1F5F9) !important;
+    border: 1px solid var(--melosso-card-border, rgba(255, 255, 255, 0.1));
+  }
+  .portal-btn-secondary:hover {
+    border-color: var(--melosso-accent, #10B981);
+    background: rgba(16, 185, 129, 0.08);
+  }
 
-    /* Action Buttons */
-    .portal-body {
-        display: flex;
-        flex-direction: column;
-        gap: 12px;
-    }
+  .portal-divider {
+    display: flex;
+    align-items: center;
+    gap: 14px;
+    color: var(--melosso-text-muted, #64748B);
+    font-size: 12px;
+    text-transform: uppercase;
+    letter-spacing: 0.08em;
+    margin: 28px 0 20px;
+  }
+  .portal-divider::before,
+  .portal-divider::after {
+    content: "";
+    flex: 1;
+    height: 1px;
+    background: var(--melosso-card-border, rgba(255, 255, 255, 0.08));
+  }
 
-    .btn-primary {
-        background-color: var(--home-accent);
-        color: #000 !important;
-        padding: 12px 24px;
-        border-radius: 6px;
-        font-weight: 600;
-        text-decoration: none !important;
-        transition: background-color 0.2s;
-        border: none;
-    }
+  .portal-explore {
+    display: inline-flex;
+    align-items: center;
+    gap: 8px;
+    color: var(--melosso-text-secondary, #94A3B8) !important;
+    font-size: 14px;
+    font-weight: 500;
+    text-decoration: none !important;
+    padding: 8px 16px;
+    border-radius: 8px;
+    transition: color 0.2s ease, background-color 0.2s ease;
+  }
+  .portal-explore:hover {
+    color: var(--melosso-accent, #10B981) !important;
+    background: rgba(255, 255, 255, 0.04);
+  }
 
-    .btn-primary:hover {
-        filter: brightness(1.1);
-    }
+  /* feature row */
+  .portal-features {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 20px;
+    width: 100%;
+    max-width: 880px;
+  }
+  .portal-feature {
+    background: var(--melosso-card-bg, rgba(255, 255, 255, 0.03));
+    border: 1px solid var(--melosso-card-border, rgba(255, 255, 255, 0.08));
+    border-radius: 14px;
+    padding: 28px 24px;
+    text-align: center;
+    transition: border-color 0.2s ease, transform 0.2s ease, box-shadow 0.2s ease;
+  }
+  .portal-feature:hover {
+    transform: translateY(-3px);
+    border-color: var(--melosso-accent, #10B981);
+    box-shadow: 0 0 24px rgba(16, 185, 129, 0.12);
+  }
+  .portal-feature-icon {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    width: 48px;
+    height: 48px;
+    border-radius: 12px;
+    background: rgba(16, 185, 129, 0.1);
+    color: var(--melosso-accent, #10B981);
+    margin-bottom: 16px;
+  }
+  .portal-feature h3 {
+    color: var(--melosso-text-primary, #F1F5F9) !important;
+    font-size: 16px !important;
+    font-weight: 600 !important;
+    margin: 0 0 8px !important;
+  }
+  .portal-feature p {
+    color: var(--melosso-text-secondary, #94A3B8);
+    font-size: 13px;
+    line-height: 1.55;
+    margin: 0;
+  }
 
-    .btn-secondary {
-        background-color: transparent;
-        color: var(--home-text-primary) !important;
-        border: 1px solid var(--home-border);
-        padding: 12px 24px;
-        border-radius: 6px;
-        font-weight: 500;
-        text-decoration: none !important;
-        transition: border-color 0.2s, background-color 0.2s;
-    }
-
-    .btn-secondary:hover {
-        border-color: var(--home-text-muted);
-        background-color: rgba(255, 255, 255, 0.05);
-    }
-
-    @media (prefers-color-scheme: light) {
-        .btn-secondary:hover {
-            background-color: rgba(0, 0, 0, 0.05);
-        }
-    }
-
-    .divider {
-        display: flex;
-        align-items: center;
-        text-align: center;
-        color: var(--home-text-muted);
-        font-size: 12px;
-        margin: 8px 0;
-    }
-
-    .divider::before, .divider::after {
-        content: '';
-        flex: 1;
-        border-bottom: 1px solid var(--home-border);
-    }
-
-    .divider span {
-        padding: 0 10px;
-    }
-
-    @media (max-width: 480px) {
-        .portal-card {
-            border: none;
-            box-shadow: none;
-            padding: 20px;
-        }
-    }
+  @media (max-width: 760px) {
+    .portal-features { grid-template-columns: 1fr; max-width: 460px; }
+    .portal-hero { gap: 40px; padding: 56px 20px; }
+    .portal-card-inner { padding: 40px 28px 32px; }
+  }
+  @media (prefers-reduced-motion: reduce) {
+    .orb { animation: none; }
+    .portal-btn:hover, .portal-feature:hover { transform: none; }
+  }
 </style>
 {{template "base/footer" .}}
