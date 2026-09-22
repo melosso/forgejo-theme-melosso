@@ -558,6 +558,12 @@ i.grey.icon.icon.icon.icon {
   padding-bottom: 0.25rem !important;
   margin: 0 !important;
 }
+
+.tabs-with-labels .item > .ui.label,
+.dashboard-orgs .ui.label,
+.dashboard-repos .ui.label {
+  margin-inline-start: 0.5rem !important;
+}
 .ui.red.label.notification_count,
 .ui.primary.label,
 .ui.primary.labels .label {
@@ -592,6 +598,10 @@ strong.attention-caution, svg.attention-caution {
 .ui.basic.red.button {
   background-color: var(--color-red);
   color: var(--color-white);
+}
+
+.tippy-box:not([data-theme]) {
+  color: var(--color-tooltip-text) !important;
 }
 .ui.basic.red.button:hover,
 .ui.basic.red.button:focus {
