@@ -272,7 +272,7 @@
   --color-timeline: var(--steel-450);
   --color-input-text: var(--melosso-text-primary);
   --color-input-background: #FFFFFF;
-  --color-input-toggle-background: #FFFFFF;
+  --color-input-toggle-background: var(--steel-550);
   --color-input-border: var(--steel-450);
   --color-input-border-hover: var(--steel-500);
   --color-header-wrapper: var(--steel-350);
