@@ -32,4 +32,4 @@ Identically published as the original it's based on, which is: [GNU GPL 3.0](./L
 
 ## Credits
 
-Melosso is adapted from the [Dracula/Alucard theme](https://forge.axfive.net/Taylor/forgejo-theme-dracula) originally created by [Taylor C. Richberger](https://forge.axfive.net/Taylor).
+Melosso is adapted from the [Dracula/Alucard theme](https://forge.axfive.net/Taylor/forgejo-theme-dracula) originally created by [Taylor Richberger](https://forge.axfive.net/Taylor).
