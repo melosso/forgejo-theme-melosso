@@ -16,6 +16,8 @@ jobs:
     steps:
       - name: Checkout code
         uses: actions/checkout@v4
+        with:
+          fetch-depth: 0
 
       - name: Prepare release assets
         run: |
@@ -29,6 +31,18 @@ jobs:
           cp theme-melosso-light.css $RELEASE_NAME/theme-melosso-light.css
           zip -r ${RELEASE_NAME}.zip $RELEASE_NAME
 
+      - name: Generate Release Notes
+        run: |
+          PREV_TAG=$(git describe --tags --abbrev=0 HEAD 2>/dev/null || echo "")
+
+          echo "### What's Changed" > release_notes.md
+
+          if [ -n "$PREV_TAG" ]; then
+            git log ${PREV_TAG}..HEAD --no-merges --pretty=format:"* %s by @%an in %h" >> release_notes.md
+          else
+            git log --no-merges --pretty=format:"* %s by @%an in %h" >> release_notes.md
+          fi
+
       - name: Create Tag
         run: |
           git tag ${{ github.event.inputs.version }}
@@ -39,6 +53,7 @@ jobs:
         with:
           tag_name: ${{ github.event.inputs.version }}
           name: ${{ github.event.inputs.version }}
+          body_path: release_notes.md
           files: melosso-theme-${{ github.event.inputs.version }}.zip
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
