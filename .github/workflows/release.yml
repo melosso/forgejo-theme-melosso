@@ -7,6 +7,11 @@ on:
         description: 'Version number (e.g., v0.1.4)'
         required: true
         type: string
+      summary:
+        description: 'Intro line for the release notes'
+        required: false
+        default: 'A minor release resolving various issues:'
+        type: string
 
 jobs:
   release:
@@ -32,16 +37,34 @@ jobs:
           zip -r ${RELEASE_NAME}.zip $RELEASE_NAME
 
       - name: Generate Release Notes
+        env:
+          VERSION: ${{ github.event.inputs.version }}
+          SUMMARY: ${{ github.event.inputs.summary }}
+          REPO_URL: ${{ github.server_url }}/${{ github.repository }}
         run: |
           PREV_TAG=$(git describe --tags --abbrev=0 HEAD 2>/dev/null || echo "")
+          RANGE=${PREV_TAG:+$PREV_TAG..}HEAD
+          LOG=$(git log "$RANGE" --no-merges --pretty=format:"%s")
 
-          echo "### What's Changed" > release_notes.md
+          section() {
+            local TITLE=$1; shift
+            ITEMS=$(echo "$LOG" | { grep -E "$@" || true; } | sed '/^$/d; s/^/- [x] /')
+            if [ -n "$ITEMS" ]; then
+              printf '#### %s in `%s`:\n\n%s\n\n' "$TITLE" "$VERSION" "$ITEMS"
+            fi
+          }
 
-          if [ -n "$PREV_TAG" ]; then
-            git log ${PREV_TAG}..HEAD --no-merges --pretty=format:"* %s by @%an in %h" >> release_notes.md
-          else
-            git log --no-merges --pretty=format:"* %s by @%an in %h" >> release_notes.md
-          fi
+          {
+            printf '%s\n\n' "$SUMMARY"
+            section "New" '^feat(\(.*\))?!?:'
+            section "Fixes" '^fix(\(.*\))?!?:'
+            section "Other changes" -v '^(feat|fix|chore|docs|ci)(\(.*\))?!?:'
+            echo "Running into a compatibility problem or have a good suggestion? Please let us know by opening [an issue]($REPO_URL/issues)!"
+            if [ -n "$PREV_TAG" ]; then
+              printf '\n**Full Changelog**: %s/compare/%s...%s\n' "$REPO_URL" "$PREV_TAG" "$VERSION"
+            fi
+          } > release_notes.md
+          cat release_notes.md
 
       - name: Create Tag
         run: |
