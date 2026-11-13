@@ -296,7 +296,7 @@
   --color-text-focus: #fff;
   --color-expand-button: var(--steel-450);
   --color-placeholder-text: var(--melosso-text-muted);
-  --color-editor-line-highlight: var(--steel-400);
+  --color-editor-line-highlight: var(--steel-450);
   --color-project-board-bg: var(--color-secondary-light-2);
   --color-project-board-dark-label: var(--melosso-text-muted);
   --color-caret: var(--melosso-accent);
@@ -318,7 +318,7 @@
   --color-highlight-fg: var(--color-primary-dark-1);
   --color-highlight-bg: var(--color-primary-alpha-10);
   --color-overlay-backdrop: #0F172A40;
-  --color-selection-bg: var(--steel-450);
+  --color-selection-bg: var(--color-primary-light-4);
   --color-selection-fg: var(--melosso-text-primary);
 
   /* pattern colors for image diff */
@@ -475,7 +475,7 @@ body .ui.attached.segment {
 .ui.red.label.notification_count,
 .ui.primary.labels .label {
   background-color: var(--color-primary-light-1) !important;
-  color: #fff !important;
+  color: var(--melosso-text-primary) !important;
 }
 .ui.labeled.icon.buttons > .button > .icon,
 .ui.labeled.icon.button > .icon {

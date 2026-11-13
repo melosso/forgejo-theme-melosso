@@ -347,7 +347,7 @@ h1, h2, h3, h4, h5, h6 {
   --color-text-focus: var(--melosso-text-primary);
   --color-expand-button: var(--steel-700);
   --color-placeholder-text: var(--melosso-text-muted);
-  --color-editor-line-highlight: var(--steel-750);
+  --color-editor-line-highlight: var(--steel-700);
   --color-project-board-bg: var(--steel-750);
   --color-project-board-dark-label: var(--melosso-text-muted);
   --color-caret: var(--melosso-accent);
