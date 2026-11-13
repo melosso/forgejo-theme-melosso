@@ -840,7 +840,7 @@ p.help {
 }
 
 .ui.dropdown .menu > .item.active {
-  background: var(--color-active) !important;
+  background: var(--color-primary-alpha-20) !important;
 }
 
 /* User menu and navigation dropdowns, ensure above other content */
